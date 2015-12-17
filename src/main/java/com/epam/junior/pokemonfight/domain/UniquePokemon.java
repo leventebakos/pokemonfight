@@ -1,13 +1,9 @@
 package com.epam.junior.pokemonfight.domain;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
 public final class UniquePokemon {
-	private static final Logger LOGGER = LoggerFactory.getLogger(UniquePokemon.class);
-	
 	private final Pokemon pokemon;
 	private final int level;
 	
@@ -39,13 +35,19 @@ public final class UniquePokemon {
 		} else if (level < player2PokemonLevel) {
 			winner = player2CurrentPokemon;
 		} else {
-			if (Math.random() >= 0.5) {
-				winner = this; 
-			} else {
-				winner = player2CurrentPokemon;
-			}
+			winner = selectWinnerBasedOnRandom(this, player2CurrentPokemon);
 		}
 		
 		return winner;
+	}
+
+	private UniquePokemon selectWinnerBasedOnRandom(UniquePokemon player1Pokemon, UniquePokemon player2Pokemon) {
+		UniquePokemon ret;
+		if (Math.random() >= 0.5) {
+			ret = player1Pokemon; 
+		} else {
+			ret = player2Pokemon;
+		}
+		return ret;
 	}
 }

@@ -18,8 +18,12 @@ public class KnockOutPokemonFight implements PokemonFight {
 	private List<Player> players;
 	
 	private List<Player> remainingPlayers = new ArrayList<>();
-	private List<Player> advancedPlayers = new ArrayList<>();
+	private List<Player> winningPlayers = new ArrayList<>();
 	private Random random = new Random();
+	
+	public List<Player> getPlayers() {
+		return players;
+	}
 	
 	@Override
 	public void startChampionship() {
@@ -30,11 +34,8 @@ public class KnockOutPokemonFight implements PokemonFight {
 			Player player2 = getRandomPlayer();
 			PlayerBattle playerBattle = new PlayerBattle(player1, player2);
 			Player winner = playerBattle.battle();
-			advancedPlayers.add(winner);
-			if (remainingPlayers.size() == 0) {
-				remainingPlayers.addAll(advancedPlayers);
-				advancedPlayers.clear();
-			}
+			winningPlayers.add(winner);
+			addWinningPlayersIfEverybodyFighted();
 		}
 		LOGGER.warn("The champion is: {}! Congratulations!!!", remainingPlayers.get(0).getName());
 	}
@@ -43,8 +44,13 @@ public class KnockOutPokemonFight implements PokemonFight {
 		int index = random.nextInt(remainingPlayers.size());
 		return remainingPlayers.remove(index);
 	}
-
-	public List<Player> getPlayers() {
-		return players;
+	
+	private void addWinningPlayersIfEverybodyFighted() {
+		if (remainingPlayers.size() == 0) {
+			remainingPlayers.addAll(winningPlayers);
+			winningPlayers.clear();
+		}
 	}
+
+	
 }
