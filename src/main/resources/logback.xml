@@ -1,0 +1,12 @@
+<configuration scan="true" scanPeriod="3 seconds">
+	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+		<file>PokemonFight.log</file>
+		<append>true</append>
+		<encoder>
+			<pattern>%msg%n</pattern>
+		</encoder>
+	</appender>
+	<root level="warn">
+		<appender-ref ref="FILE" />
+	</root>
+</configuration> 
