@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@ComponentScan({"com.epam.pokemonfight"})
+@ComponentScan("com.epam.pokemonfight")
 @Import({UniquePokemonConfig.class, PlayerConfig.class, KnockOutPokemonFightConfig.class})
 public class AppConfig {
 
